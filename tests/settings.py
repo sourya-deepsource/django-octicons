@@ -2,15 +2,10 @@
 # -*- coding: utf-8 -*-
 
 
-SECRET_KEY = 'hunter2'
+SECRET_KEY = "hunter2"
 
 TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
-    },
+    {"BACKEND": "django.template.backends.django.DjangoTemplates", "APP_DIRS": True,},
 ]
 
-INSTALLED_APPS = [
-    'octicons.apps.OcticonsConfig'
-]
+INSTALLED_APPS = ["octicons.apps.OcticonsConfig"]
