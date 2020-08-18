@@ -10,44 +10,44 @@ from setuptools import Command, find_packages, setup
 from setuptools.command.test import test as TestCommand
 
 # Package meta-data.
-NAME = 'django-octicons'
+NAME = "django-octicons"
 DESCRIPTION = "Django templatetags for GitHub's Octicons."
-URL = 'https://github.com/sanketsaurav/django-octicons'
-EMAIL = 'sanketsaurav@gmail.com'
-AUTHOR = 'Sanket Saurav'
-REQUIRES_PYTHON = '>=2.7.0'
+URL = "https://github.com/sanketsaurav/django-octicons"
+EMAIL = "sanketsaurav@gmail.com"
+AUTHOR = "Sanket Saurav"
+REQUIRES_PYTHON = ">=2.7.0"
 VERSION = None
 
 # What packages are required for this module to be executed?
-REQUIRED = ['django']
+REQUIRED = ["django"]
 
 # packages required for tests to run
-TEST_REQUIRED = ['pytest-django', 'pytest-cov']
+TEST_REQUIRED = ["pytest-django", "pytest-cov"]
 
 here = os.path.abspath(os.path.dirname(__file__))
 
-with io.open(os.path.join(here, 'README.md'), encoding='utf-8') as f:
-    long_description = '\n' + f.read()
+with io.open(os.path.join(here, "README.md"), encoding="utf-8") as f:
+    long_description = "\n" + f.read()
 
 # Load the package's __version__.py module as a dictionary.
 about = {}
 if not VERSION:
-    with open(os.path.join(here, 'octicons', '__version__.py')) as f:
+    with open(os.path.join(here, "octicons", "__version__.py")) as f:
         exec(f.read(), about)  # nosec
 else:
-    about['__version__'] = VERSION
+    about["__version__"] = VERSION
 
 
 class UploadCommand(Command):
     """Support setup.py upload."""
 
-    description = 'Build and publish the package.'
+    description = "Build and publish the package."
     user_options = []
 
     @staticmethod
     def status(s):
         """Prints things in bold."""
-        print('\033[1m{0}\033[0m'.format(s))
+        print("\033[1m{0}\033[0m".format(s))
 
     def initialize_options(self):
         pass
@@ -57,22 +57,20 @@ class UploadCommand(Command):
 
     def run(self):
         try:
-            self.status('Removing previous builds…')
-            rmtree(os.path.join(here, 'dist'))
+            self.status("Removing previous builds…")
+            rmtree(os.path.join(here, "dist"))
         except OSError:
             pass
 
-        self.status('Building Source and Wheel (universal) distribution…')
-        os.system(
-            '{0} setup.py sdist bdist_wheel --universal'.format(sys.executable)
-        )
+        self.status("Building Source and Wheel (universal) distribution…")
+        os.system("{0} setup.py sdist bdist_wheel --universal".format(sys.executable))
 
-        self.status('Uploading the package to PyPi via Twine…')
-        os.system('twine upload dist/*')
+        self.status("Uploading the package to PyPi via Twine…")
+        os.system("twine upload dist/*")
 
-        self.status('Pushing git tags…')
-        os.system('git tag v{0}'.format(about['__version__']))
-        os.system('git push --tags')
+        self.status("Pushing git tags…")
+        os.system("git tag v{0}".format(about["__version__"]))
+        os.system("git push --tags")
 
         sys.exit()
 
@@ -97,40 +95,37 @@ class PyTest(TestCommand):
 # Where the magic happens:
 setup(
     name=NAME,
-    version=about['__version__'],
+    version=about["__version__"],
     description=DESCRIPTION,
     long_description=long_description,
-    long_description_content_type='text/markdown',
+    long_description_content_type="text/markdown",
     author=AUTHOR,
     author_email=EMAIL,
     python_requires=REQUIRES_PYTHON,
     url=URL,
-    keywords='django icons github octicons templatetags',
-    packages=find_packages(exclude=('tests',)),
+    keywords="django icons github octicons templatetags",
+    packages=find_packages(exclude=("tests",)),
     install_requires=REQUIRED,
     tests_require=TEST_REQUIRED,
     include_package_data=True,
-    license='MIT',
+    license="MIT",
     classifiers=[
-        'Development Status :: 4 - Beta',
-        'Intended Audience :: Developers',
-        'Topic :: Software Development :: Libraries :: Python Modules',
-        'Environment :: Web Environment',
-        'Topic :: Internet',
-        'License :: OSI Approved :: MIT License',
-        'Operating System :: OS Independent',
-        'Programming Language :: Python',
-        'Programming Language :: Python :: 2.7',
-        'Programming Language :: Python :: 3.4',
-        'Programming Language :: Python :: 3.5',
-        'Programming Language :: Python :: 3.6',
-        'Framework :: Django',
-        'Framework :: Django :: 1.11',
-        'Framework :: Django :: 2.0',
-        'Framework :: Django :: 2.1',
+        "Development Status :: 4 - Beta",
+        "Intended Audience :: Developers",
+        "Topic :: Software Development :: Libraries :: Python Modules",
+        "Environment :: Web Environment",
+        "Topic :: Internet",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
+        "Framework :: Django",
+        "Framework :: Django :: 1.11",
+        "Framework :: Django :: 2.0",
+        "Framework :: Django :: 2.1",
     ],
-    cmdclass={
-        'upload': UploadCommand,
-        'test': PyTest
-    },
+    cmdclass={"upload": UploadCommand, "test": PyTest},
 )
