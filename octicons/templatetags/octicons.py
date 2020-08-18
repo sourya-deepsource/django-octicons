@@ -15,22 +15,18 @@ class Octicon(object):
         self.symbol = symbol
         self.octicon = OCTICON_DATA.get(self.symbol)
         if not self.octicon:
-            raise ValueError(
-                "Couldn't find octicon symbol for {}".format(self.symbol)
-            )
+            raise ValueError("Couldn't find octicon symbol for {}".format(self.symbol))
 
-        self.path = self.octicon['path']
-        self.width = int(self.octicon['width'])
-        self.height = int(self.octicon['height'])
+        self.path = self.octicon["path"]
+        self.width = int(self.octicon["width"])
+        self.height = int(self.octicon["height"])
 
-        self.keywords = self.octicon['keywords']
+        self.keywords = self.octicon["keywords"]
 
         self.options = options
-        self.options.update({
-            "class": self.classes,
-            "viewBox": self.viewBox,
-            "version": "1.1"
-        })
+        self.options.update(
+            {"class": self.classes, "viewBox": self.viewBox, "version": "1.1"}
+        )
 
         self.options.update(self.size)
 
@@ -51,16 +47,18 @@ class Octicon(object):
     def a11y(self):
         accessible = {}
 
-        if not self.options.get('aria-label'):
-            accessible['aria-hidden'] = 'true'
+        if not self.options.get("aria-label"):
+            accessible["aria-hidden"] = "true"
         else:
-            accessible['role'] = 'img'
+            accessible["role"] = "img"
 
         return accessible
 
     @property
     def classes(self):
-        classes = 'octicon octicon-{} '.format(self.symbol) + self.options.get('class', '')  # noqa
+        classes = "octicon octicon-{} ".format(self.symbol) + self.options.get(
+            "class", ""
+        )  # noqa
         return classes.strip()
 
     @property
@@ -69,32 +67,27 @@ class Octicon(object):
 
     @property
     def size(self):
-        size = {
-            'width': self.width,
-            'height': self.height
-        }
+        size = {"width": self.width, "height": self.height}
 
         # if a custom width or height is passed in
         if (
-                (self.options.get('width') or
-                 self.options.get('height')) and
-                'scale' not in self.options
-        ):
-            if self.options.get('width'):
-                size['width'] = self.options.get('width')
+            self.options.get("width") or self.options.get("height")
+        ) and "scale" not in self.options:
+            if self.options.get("width"):
+                size["width"] = self.options.get("width")
             else:
-                size['width'] = self._calculate_width(self.options['height'])
+                size["width"] = self._calculate_width(self.options["height"])
 
-            if self.options.get('height'):
-                size['height'] = self.options.get('height')
+            if self.options.get("height"):
+                size["height"] = self.options.get("height")
             else:
-                size['height'] = self._calculate_height(self.options['width'])
+                size["height"] = self._calculate_height(self.options["width"])
 
         # if a custom scale is provided
-        if self.options.get('scale'):
-            factor = self.options.get('scale')
-            size['width'] = int(int(size['width']) * factor)
-            size['height'] = int(int(size['height']) * factor)
+        if self.options.get("scale"):
+            factor = self.options.get("scale")
+            size["width"] = int(int(size["width"]) * factor)
+            size["height"] = int(int(size["height"]) * factor)
 
         return size
 
